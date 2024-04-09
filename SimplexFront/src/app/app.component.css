@@ -1,0 +1,47 @@
+
+
+
+   :host ::ng-deep  .p-panel .p-panel-header {
+    background: #a7cef5;
+    color: #ffffff;
+   }
+
+    :host ::ng-deep  .p-button {
+        background: #a7cef5;
+        border: 1px solid #ffffff;
+    }
+
+
+    :host ::ng-deep .p-button.p-button-text {
+        background: #a7cef5;
+        color: #ffffff;
+    }
+
+    :host ::ng-deep .p-dialog .p-dialog-header {
+        background: #a7cef5;
+        color: #ffffff;
+    }
+    
+
+    :host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+        background: #a7cef5;
+        color: #ffffff;
+    }
+
+    :host ::ng-deep .p-dialog .p-dialog-content {
+        background:  #eef5fb
+    }
+
+    :host ::ng-deep .p-dialog .p-dialog-footer {
+        background:  #eef5fb
+    }
+
+    :host ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        background: #a7cef5;
+        color: #ffffff;
+    }
+
+    :host ::ng-deep .resultado-optimo {
+        background-color: rgba( 214, 254, 219 ) !important;
+    }
+

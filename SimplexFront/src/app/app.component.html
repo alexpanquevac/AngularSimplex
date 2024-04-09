@@ -1,0 +1,170 @@
+<body>
+<div class="card">
+  <h5>Método gráfico</h5>
+  <p-tabView [(activeIndex)]="indicePestana">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <span> Ecuaciones</span>
+        &nbsp;
+        <i class="pi pi-book"></i>
+      </ng-template>
+
+
+      <p-panel header="Función objetivo" styleClass="dark-panel">
+        <div class="p-grid">
+          <div class="p-col-6">
+            <label for="variableObjetivoX1">Variable X1</label>
+          </div>
+          <div class="p-col-6">
+            <input type="text" pInputText id="variableObjetivoX1" [(ngModel)]="objetivoX1" />
+          </div>
+          <div class="p-col-6">
+            <label for="variableObjetivoX2">Variable X2</label>
+          </div>
+          <div class="p-col-6">
+            <input type="text" pInputText id="variableObjetivoX2" [(ngModel)]="objetivoX2" required />
+          </div>
+        </div>
+        <br>
+        <div class="grid">
+          <div class="col-3 ">
+            Tipo de problema: &nbsp;
+          </div>
+          <div class="col-3 ">
+            <p-dropdown [options]="tipoProblema" placeholder="Seleccione"></p-dropdown>
+          </div>
+
+        </div>
+
+      </p-panel>
+      <br>
+      <p-panel header="Restricciones">
+
+        <div class="p-field p-col-12 p-md-4">
+          <div>
+            <p-table [responsive]="true" [value]="ecuaciones" [paginator]="true" [rows]="10">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Variable X1</th>
+                  <th>Variable X2</th>
+                  <th>Signo</th>
+                  <th>Resultado</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-ecuacion>
+                <tr>
+                  <td>{{ecuacion.variableX1}}</td>
+                  <td>{{ecuacion.variableX2}}</td>
+                  <td>{{ecuacion.signo}}</td>
+                  <td>{{ecuacion.resultado}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+            <p-toolbar styleClass="p-mb-4">
+              <ng-template pTemplate="left">
+                <button pButton pRipple label="Agregar" icon="pi pi-plus" (click)="agregar()"></button>
+
+              </ng-template>
+            </p-toolbar>
+          </div>
+
+        </div>
+      </p-panel>
+      <br>
+      <div class="grid">
+        <div class="col-12" style="text-align:  center;">
+          <p-button label="Graficar" icon="pi pi-check" (click)="graficar()"></p-button>
+        </div>
+      </div>
+
+
+      <p-dialog header="Agregar restricción" [(visible)]="dialogo" [style]="{width: '800px'}">
+
+        <br>
+        <ng-template pTemplate="contenido">
+          <div class="grid">
+            <div class="col-6">
+              <label for="variableX1">Variable X1</label>
+            </div>
+            <div class="col-6">
+              <input type="text" pInputText id="variableX1" [(ngModel)]="ecuacion.variableX1" />
+            </div>
+            <div class="col-6">
+              <label for="variableX2">Variable X2</label>
+            </div>
+            <div class="col-6">
+              <input type="text" pInputText id="variableX2" [(ngModel)]="ecuacion.variableX2" required />
+            </div>
+            <div class="col-6">
+              <label for="signo">Signo</label>
+            </div>
+            <div class="col-6">
+              <div class="p-lg-6 p-md-6 p-col-12 ">
+                <p-dropdown [options]="signos" [(ngModel)]="ecuacion.signo" placeholder="Seleccione"></p-dropdown>
+
+              </div>
+            </div>
+
+            <div class="col-6">
+              <label for="resultado">Resultado</label>
+            </div>
+            <div class="col-6">
+              <input type="text" pInputText id="resultado" [(ngModel)]="ecuacion.resultado" required />
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text"
+            (click)="cerrarDialogo()"></button>
+          <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text"
+            (click)="guardarRestriccion()"></button>
+        </ng-template>
+      </p-dialog>
+    </p-tabPanel>
+    <p-tabPanel>
+
+      <ng-template pTemplate="header">
+        <span> Grafica</span>
+        &nbsp;
+        <i class="pi pi-chart-line"></i>
+      </ng-template>
+
+
+      <p-panel header="Grafica">
+        <div class="grid" *ngIf="images[0]">
+          <div class="col-6" style="text-align:  center;">
+            <img [src]="images[0]" style="height: 500px; width: 500px;">
+            <br><br>
+          </div>
+          <div class="col-6">
+            <p-table [responsive]="true" [value]="ecuacionesResultados" [paginator]="true" [rows]="10">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Variable X1</th>
+                  <th>Variable X2</th>
+                  <th>Resultado</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-ecuacion>
+                <tr [ngClass]="{'resultado-optimo': ecuacion.tipoEcuacion === 'Objetivo'}">
+                  <td>{{ecuacion.variableX1}}</td>
+                  <td>{{ecuacion.variableX2}}</td>
+                  <td>{{ecuacion.resultado}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+
+        <div class="col-12" style="text-align:  center;" *ngIf="!images[0]">
+          No se ha realizado ninguna operación
+        </div>
+
+      </p-panel>
+    </p-tabPanel>
+  </p-tabView>
+
+  <button pButton pRipple label="Limpiar campos" icon="pi pi-trash" (click)="limpiar()"></button>
+</div>

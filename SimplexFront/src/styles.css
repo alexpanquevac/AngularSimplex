@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+body{
+    background:  blue;
+    background-image: url("./assets/fondo5.jpg");
+
+}
+
+.superior{
+    margin-top: 0;
+    height: auto;
+    background-color: rgba(198, 214, 226, .80);
+    position: sticky;
+    top: 0;
+    z-index:3;
+}
+
+.footer{
+    height: 50px;
+    background-color: rgba(198, 214, 226, .80);
+    position: sticky;
+    bottom: 0;
+    z-index:3;
+}
